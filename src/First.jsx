@@ -21,7 +21,6 @@ function First() {
   const canvasRef = useRef(null);
 
   const render = () => {
-    console.log(phone.frame);
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     ctx.drawImage(
@@ -39,7 +38,9 @@ function First() {
 
   useEffect(() => {
     if (images.length) {
-      render();
+      images[0].onload = function () {
+        render();
+      };
       gsap.to(phone, {
         frame: frameCount - 1,
         snap: 'frame',
@@ -47,7 +48,7 @@ function First() {
         scrollTrigger: {
           scrub: 0.5,
           start: 'top top',
-          end: '+=150%',
+          end: '+=180%',
           trigger: '.canvas',
           pin: true,
         },

@@ -21,7 +21,6 @@ function Second() {
   const canvasRef = useRef(null);
 
   const render = () => {
-    console.log(car.frame);
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     const ptrn = ctx.createPattern(images[car.frame], 'no-repeat');
@@ -39,11 +38,11 @@ function Second() {
     setImages(preloadImages(frameCount, currentFrame));
   }, []);
 
-  console.log(images);
-
   useEffect(() => {
     if (images.length) {
-      render();
+      images[0].onload = function () {
+        render();
+      };
       gsap.to(car, {
         frame: frameCount - 1,
         snap: 'frame',
