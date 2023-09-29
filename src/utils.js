@@ -3,7 +3,7 @@ export const preloadImages = (frameCount, imageURLFunc) => {
   for (let i = 0; i < frameCount; i++) {
     const img = new Image();
     img.src = imageURLFunc(i);
-    img.style.objectFit = 'cover';
+    img.style.objectFit = 'contain';
     imagesArr.push(img);
   }
   return imagesArr;

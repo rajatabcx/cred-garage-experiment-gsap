@@ -12,7 +12,7 @@ const currentFrame = (index) =>
     index < 10 ? `0${index}` : index
   }.png`;
 
-const airpods = {
+const phone = {
   frame: 0,
 };
 
@@ -21,11 +21,11 @@ function First() {
   const canvasRef = useRef(null);
 
   const render = () => {
-    console.log(airpods.frame);
+    console.log(phone.frame);
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     ctx.drawImage(
-      images[airpods.frame],
+      images[phone.frame],
       0,
       0,
       window.innerWidth,
@@ -40,13 +40,12 @@ function First() {
   useEffect(() => {
     if (images.length) {
       render();
-      gsap.to(airpods, {
+      gsap.to(phone, {
         frame: frameCount - 1,
         snap: 'frame',
         ease: 'steps(' + frameCount + ')',
         scrollTrigger: {
           scrub: 0.5,
-          markers: true,
           start: 'top top',
           end: '+=150%',
           trigger: '.canvas',
@@ -55,6 +54,7 @@ function First() {
         onUpdate: render,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
   return (
@@ -62,7 +62,6 @@ function First() {
       height={window.innerHeight}
       width={window.innerWidth}
       className='canvas'
-      id='canvas'
       ref={canvasRef}
     >
       Your browser does not support the canvas element.
